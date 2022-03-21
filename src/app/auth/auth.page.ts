@@ -9,6 +9,7 @@ import { AuthService } from './auth.service';
 })
 export class AuthPage implements OnInit {
   private username = '';
+  isLoading = false;
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -19,12 +20,16 @@ export class AuthPage implements OnInit {
   }
 
   onLogin() {
+    this.isLoading = true;
     let navigationExtras: NavigationExtras = {
       queryParams: {
         username: JSON.stringify(this.username),
       },
     };
     this.authService.login();
-    this.router.navigate(['/success'], navigationExtras);
+    setTimeout(() => {
+      this.isLoading = false;
+      this.router.navigate(['/success'], navigationExtras);
+    }, 1500);
   }
 }
