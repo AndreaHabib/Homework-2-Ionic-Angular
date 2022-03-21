@@ -16,8 +16,8 @@ export class SuccessPage implements OnInit {
     private router: Router
   ) {
     this.route.queryParams.subscribe((params) => {
-      if (params && params.special) {
-        this.username = JSON.parse(params.special);
+      if (params && params.username) {
+        this.username = JSON.parse(params.username);
       }
     });
   }
