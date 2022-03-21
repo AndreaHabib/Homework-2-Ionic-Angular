@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import { AuthService } from './auth.service';
 
 @Component({
@@ -8,12 +8,23 @@ import { AuthService } from './auth.service';
   styleUrls: ['./auth.page.scss'],
 })
 export class AuthPage implements OnInit {
+  private username = '';
+
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit() {}
 
+  onUserName($event) {
+    this.username = $event.target.value;
+  }
+
   onLogin() {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        special: JSON.stringify(this.username),
+      },
+    };
     this.authService.login();
-    this.router.navigateByUrl('/places/tabs/discover');
+    this.router.navigate(['/success'], navigationExtras);
   }
 }
