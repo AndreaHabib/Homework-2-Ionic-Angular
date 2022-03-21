@@ -21,7 +21,7 @@ export class AuthPage implements OnInit {
   onLogin() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        special: JSON.stringify(this.username),
+        username: JSON.stringify(this.username),
       },
     };
     this.authService.login();
