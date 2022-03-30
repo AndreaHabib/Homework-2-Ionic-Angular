@@ -8,13 +8,25 @@ import { NewOfferPageRoutingModule } from './new-offer-routing.module';
 
 import { NewOfferPage } from './new-offer.page';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { Routes, RouterModule } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '',
+    component: NewOfferPage,
+  },
+];
+
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    NewOfferPageRoutingModule
+    NewOfferPageRoutingModule,
+    ReactiveFormsModule,
+    RouterModule.forChild(routes),
   ],
-  declarations: [NewOfferPage]
+  declarations: [NewOfferPage],
 })
 export class NewOfferPageModule {}

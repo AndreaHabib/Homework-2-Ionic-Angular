@@ -1,22 +1,42 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Login</ion-title>
+    <ion-title>{{ isLogin ? 'Login' : 'Signup'}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <ion-list>
+  <form #f="ngForm" (ngSubmit)="onSubmit(f)">
     <ion-item>
       <ion-label position="floating">Username</ion-label>
       <ion-input (change)="onUserName($event)" type="username"></ion-input>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="email"></ion-input>
+      <ion-input
+        ngModel
+        name="email"
+        required
+        email
+        #emailCtrl="ngModel"
+        type="email"
+      ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!emailCtrl.valid && emailCtrl.touched" lines="none">
+      <ion-label>Please enter a valid email.</ion-label>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password"></ion-input>
+      <ion-input
+        required
+        name="password"
+        ngModel
+        minlength="6"
+        #passwordCtrl="ngModel"
+        type="password"
+      ></ion-input>
+    </ion-item>
+    <ion-item *ngIf="!passwordCtrl.valid && passwordCtrl.touched" lines="none">
+      <ion-label>Please enter a valid password.</ion-label>
     </ion-item>
     <ion-item>
       <ion-label position="floating">Verify Password</ion-label>
@@ -26,9 +46,30 @@
       <ion-label>Keep me signed in</ion-label>
       <ion-checkbox slot="start" color="primary"></ion-checkbox>
     </ion-item>
-  </ion-list>
+    <ion-row>
+      <ion-col size-sm="6" offset-sm="3">
+        <ion-button
+          expand="block"
+          type="button"
+          fill="clear"
+          color="primary"
+          (click)="onSwitchAuthMode()"
+        >
+          {{ isLogin ? 'Switch to Signup' : 'Switch to Login' }}
+        </ion-button>
+        <ion-button
+          [disabled]="!f.valid"
+          type="submit"
+          color="primary"
+          expand="block"
+          (click)="onLogin()"
+        >
+          Login
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </form>
   <div>
     <ion-spinner color="primary" *ngIf="isLoading"></ion-spinner>
   </div>
-  <ion-button color="primary" (click)="onLogin()"> Login </ion-button>
 </ion-content>
