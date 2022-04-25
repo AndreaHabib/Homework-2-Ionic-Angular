@@ -23,15 +23,10 @@ export class AuthPage implements OnInit {
 
   onLogin() {
     this.isLoading = true;
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        username: JSON.stringify(this.username),
-      },
-    };
     this.authService.login();
     setTimeout(() => {
       this.isLoading = false;
-      this.router.navigate(['/success'], navigationExtras);
+      this.router.navigate(['/places/tabs/discover']);
     }, 1500);
   }
 
